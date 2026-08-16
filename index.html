@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Smart EMI & Loan Planner</title>
+
+<link rel="stylesheet" href="style.css">
+
+
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+
+<div class="logo">
+
+
+    <!-- NEW LOGO -->
+
+    <div class="logo-icon">
+
+        EMI
+
+    </div>
+
+
+    <div class="logo-text">
+
+        <strong>
+            Smart EMI
+        </strong>
+
+        <span>
+            & Loan Planner
+        </span>
+
+    </div>
+
+
+</div>
+
+
+<nav>
+
+
+    <button
+        class="nav-button active"
+        onclick="showPage('calculator',this)">
+
+        Calculator
+
+    </button>
+
+
+    <button
+        class="nav-button"
+        onclick="showPage('compare',this)">
+
+        Compare
+
+    </button>
+
+
+    <button
+        class="nav-button"
+        onclick="showPage('saved',this)">
+
+        Saved Loans
+
+    </button>
+
+
+</nav>
+
+
+<div class="header-right">
+
+
+    <button
+        class="theme-button"
+        id="themeButton"
+        onclick="toggleTheme()">
+
+        🌙
+
+    </button>
+
+
+</div>
+
+
+</header>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="container">
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+
+    <div class="badge">
+
+        PERSONAL FINANCE TOOL
+
+    </div>
+
+
+    <h1>
+
+        Smart EMI & Loan Planner
+
+    </h1>
+
+
+    <p>
+
+        Calculate your monthly EMI,
+        understand your total repayment,
+        and plan your loan with confidence.
+
+    </p>
+
+
+</section>
+
+
+<!-- =====================================================
+     CALCULATOR
+===================================================== -->
+
+<section
+    id="calculator"
+    class="page active">
+
+
+<!-- LOAN INPUT CARD -->
+
+<div class="card">
+
+
+    <div class="card-title">
+
+        <h2>
+            Loan Calculator
+        </h2>
+
+        <p>
+            Enter your loan details to calculate
+            your monthly EMI.
+        </p>
+
+    </div>
+
+
+    <!-- SIX FIELDS -->
+
+    <div class="loan-inputs">
+
+
+        <!-- LOAN TYPE -->
+
+        <div class="field">
+
+            <label>
+                Loan Type
+            </label>
+
+            <select id="loanType">
+
+                <option>
+                    Home Loan
+                </option>
+
+                <option>
+                    Car Loan
+                </option>
+
+                <option selected>
+                    Personal Loan
+                </option>
+
+                <option>
+                    Education Loan
+                </option>
+
+                <option>
+                    Business Loan
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- CURRENCY -->
+
+        <div class="field">
+
+            <label>
+                Currency
+            </label>
+
+            <select
+                id="currency"
+                onchange="changeCurrency()">
+
+                <option value="INR">
+                    ₹ INR
+                </option>
+
+                <option value="USD">
+                    $ USD
+                </option>
+
+                <option value="EUR">
+                    € EUR
+                </option>
+
+                <option value="GBP">
+                    £ GBP
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- LOAN AMOUNT -->
+
+        <div class="field">
+
+            <label>
+                Loan Amount
+            </label>
+
+
+            <div class="money-input">
+
+                <span id="currencySymbol">
+                    ₹
+                </span>
+
+
+                <input
+                    id="loanAmount"
+                    type="number"
+                    value="500000"
+                    min="1000">
+
+            </div>
+
+        </div>
+
+
+        <!-- INTEREST -->
+
+        <div class="field">
+
+            <label>
+                Interest Rate (% p.a.)
+            </label>
+
+
+            <input
+                id="interestRate"
+                type="number"
+                value="8.5"
+                min="0"
+                step="0.01">
+
+        </div>
+
+
+        <!-- TENURE -->
+
+        <div class="field">
+
+            <label>
+                Tenure
+            </label>
+
+
+            <input
+                id="tenure"
+                type="number"
+                value="5"
+                min="1">
+
+        </div>
+
+
+        <!-- TENURE UNIT -->
+
+        <div class="field">
+
+            <label>
+                Tenure Unit
+            </label>
+
+
+            <select id="tenureUnit">
+
+                <option value="years">
+                    Years
+                </option>
+
+                <option value="months">
+                    Months
+                </option>
+
+            </select>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- BUTTONS -->
+
+    <div class="buttons">
+
+
+        <button
+            class="primary"
+            onclick="calculate()">
+
+            Calculate EMI
+
+        </button>
+
+
+        <button
+            class="secondary"
+            onclick="saveLoan()">
+
+            💾 Save Calculation
+
+        </button>
+
+
+        <button
+            class="secondary"
+            onclick="downloadReport()">
+
+            📄 Download Report
+
+        </button>
+
+
+        <button
+            class="secondary"
+            onclick="resetCalculator()">
+
+            Reset
+
+        </button>
+
+
+    </div>
+
+
+    <p
+        id="error"
+        style="
+        color:#dc2626;
+        font-size:12px;
+        ">
+
+    </p>
+
+
+</div>
+
+
+<!-- =====================================================
+     RESULTS
+===================================================== -->
+
+<div class="results">
+
+
+    <!-- MONTHLY EMI -->
+
+    <div class="result-card main">
+
+        <span class="result-title">
+
+            Monthly EMI
+
+        </span>
+
+
+        <span
+            id="emi"
+            class="result-value">
+
+            ₹0
+
+        </span>
+
+
+        <span class="result-note">
+
+            Monthly payment
+
+        </span>
+
+    </div>
+
+
+    <!-- TOTAL INTEREST -->
+
+    <div class="result-card">
+
+        <span class="result-title">
+
+            Total Interest
+
+        </span>
+
+
+        <span
+            id="interest"
+            class="result-value">
+
+            ₹0
+
+        </span>
+
+
+        <span class="result-note">
+
+            Interest paid over the loan
+
+        </span>
+
+    </div>
+
+
+    <!-- TOTAL PAYMENT -->
+
+    <div class="result-card">
+
+        <span class="result-title">
+
+            Total Payment
+
+        </span>
+
+
+        <span
+            id="total"
+            class="result-value">
+
+            ₹0
+
+        </span>
+
+
+        <span class="result-note">
+
+            Principal + interest
+
+        </span>
+
+    </div>
+
+
+    <!-- TENURE -->
+
+    <div class="result-card">
+
+        <span class="result-title">
+
+            Total Tenure
+
+        </span>
+
+
+        <span
+            id="totalTenure"
+            class="result-value">
+
+            0
+
+        </span>
+
+
+        <span class="result-note">
+
+            Total repayment period
+
+        </span>
+
+    </div>
+
+
+</div>
+
+
+<!-- =====================================================
+     INSIGHT
+===================================================== -->
+
+<div class="insight">
+
+
+    <strong>
+
+        💡 Loan Summary
+
+    </strong>
+
+
+    <p id="insightText">
+
+        Enter your loan details
+        and calculate your EMI.
+
+    </p>
+
+
+</div>
+
+
+<!-- =====================================================
+     VISUAL SECTION
+===================================================== -->
+
+<div class="visual-grid">
+
+
+    <!-- DOUGHNUT -->
+
+    <div class="card">
+
+
+        <div class="card-title">
+
+            <h2>
+
+                Payment Breakdown
+
+            </h2>
+
+
+            <p>
+
+                See how your total payment
+                is divided between loan amount
+                and interest.
+
+            </p>
+
+        </div>
+
+
+        <div class="chart-box">
+
+
+            <canvas
+                id="pieChart"
+                width="350"
+                height="280">
+
+            </canvas>
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- SIMPLE EXPLANATION -->
+
+    <div class="card">
+
+
+        <div class="card-title">
+
+            <h2>
+
+                Understanding Your EMI
+
+            </h2>
+
+
+            <p>
+
+                Every EMI contains two simple parts.
+
+            </p>
+
+        </div>
+
+
+        <div
+            style="
+            margin-top:35px;
+            padding:20px;
+            background:var(--soft);
+            border-radius:12px;
+            ">
+
+
+            <div
+                style="
+                display:flex;
+                gap:12px;
+                align-items:center;
+                margin-bottom:22px;
+                ">
+
+
+                <div
+                    style="
+                    width:36px;
+                    height:36px;
+                    border-radius:9px;
+                    background:#8b5cf6;
+                    color:white;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    font-weight:bold;
+                    ">
+
+                    1
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Principal
+                    </strong>
+
+
+                    <div
+                        style="
+                        color:var(--muted);
+                        font-size:12px;
+                        margin-top:3px;
+                        ">
+
+                        Reduces the amount
+                        you borrowed.
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div
+                style="
+                display:flex;
+                gap:12px;
+                align-items:center;
+                ">
+
+
+                <div
+                    style="
+                    width:36px;
+                    height:36px;
+                    border-radius:9px;
+                    background:#10b981;
+                    color:white;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    font-weight:bold;
+                    ">
+
+                    2
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Interest
+                    </strong>
+
+
+                    <div
+                        style="
+                        color:var(--muted);
+                        font-size:12px;
+                        margin-top:3px;
+                        ">
+
+                        The cost of borrowing
+                        the money.
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<!-- =====================================================
+     AMORTIZATION
+===================================================== -->
+
+<div class="card schedule">
+
+
+    <div class="card-title">
+
+        <h2>
+
+            Amortization Schedule
+
+        </h2>
+
+
+        <p>
+
+            See how your loan balance changes
+            with every monthly payment.
+
+        </p>
+
+    </div>
+
+
+    <div class="table-tools">
+
+
+        <input
+            id="search"
+            type="text"
+            placeholder="Search month..."
+            oninput="renderTable()">
+
+
+        <button
+            class="secondary"
+            onclick="exportCSV()">
+
+            Export CSV
+
+        </button>
+
+
+        <button
+            class="secondary"
+            onclick="window.print()">
+
+            Print / PDF
+
+        </button>
+
+
+    </div>
+
+
+    <br>
+
+
+    <div class="table-wrapper">
+
+
+        <table>
+
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Month
+                    </th>
+
+                    <th>
+                        EMI
+                    </th>
+
+                    <th>
+                        Principal
+                    </th>
+
+                    <th>
+                        Interest
+                    </th>
+
+                    <th>
+                        Balance
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody
+                id="tableBody">
+
+            </tbody>
+
+
+        </table>
+
+
+    </div>
+
+
+</div>
+
+
+</section>
+
+
+<!-- =====================================================
+     COMPARE PAGE
+===================================================== -->
+
+<section
+    id="compare"
+    class="page">
+
+
+<div class="card">
+
+
+    <div class="card-title">
+
+        <h2>
+            Loan Comparison
+        </h2>
+
+        <p>
+            Compare two loan options
+            side by side.
+        </p>
+
+    </div>
+
+
+    <div class="compare-grid">
+
+
+        <!-- LOAN A -->
+
+        <div>
+
+            <h3>
+                Loan A
+            </h3>
+
+
+            <label>
+
+                Loan Amount
+
+                <input
+                    id="aAmount"
+                    type="number"
+                    value="500000">
+
+            </label>
+
+
+            <label>
+
+                Interest Rate
+
+                <input
+                    id="aRate"
+                    type="number"
+                    value="8.5">
+
+            </label>
+
+
+            <label>
+
+                Tenure (Years)
+
+                <input
+                    id="aYears"
+                    type="number"
+                    value="5">
+
+            </label>
+
+
+        </div>
+
+
+        <!-- LOAN B -->
+
+        <div>
+
+            <h3>
+                Loan B
+            </h3>
+
+
+            <label>
+
+                Loan Amount
+
+                <input
+                    id="bAmount"
+                    type="number"
+                    value="500000">
+
+            </label>
+
+
+            <label>
+
+                Interest Rate
+
+                <input
+                    id="bRate"
+                    type="number"
+                    value="9.2">
+
+            </label>
+
+
+            <label>
+
+                Tenure (Years)
+
+                <input
+                    id="bYears"
+                    type="number"
+                    value="5">
+
+            </label>
+
+
+        </div>
+
+
+    </div>
+
+
+    <button
+        class="primary"
+        style="margin-top:20px"
+        onclick="compareLoans()">
+
+        Compare Loans
+
+    </button>
+
+
+</div>
+
+
+<div class="card compare-result">
+
+
+    <div class="compare-values">
+
+
+        <div>
+
+            <span>
+                Loan A EMI
+            </span>
+
+
+            <strong
+                id="aEMI">
+
+                —
+
+            </strong>
+
+
+            <small
+                id="aInterest">
+
+                —
+
+            </small>
+
+
+        </div>
+
+
+        <div>
+
+            <span>
+                Loan B EMI
+            </span>
+
+
+            <strong
+                id="bEMI">
+
+                —
+
+            </strong>
+
+
+            <small
+                id="bInterest">
+
+                —
+
+            </small>
+
+
+        </div>
+
+
+    </div>
+
+
+    <div
+        class="winner"
+        id="winner">
+
+        Click Compare Loans.
+
+    </div>
+
+
+</div>
+
+
+</section>
+
+
+<!-- =====================================================
+     SAVED LOANS
+===================================================== -->
+
+<section
+    id="saved"
+    class="page">
+
+
+<div class="card">
+
+
+    <div class="card-title">
+
+        <h2>
+            Saved Loans
+        </h2>
+
+
+        <p>
+            Your saved calculations.
+        </p>
+
+    </div>
+
+
+    <button
+        class="secondary"
+        onclick="clearSaved()">
+
+        Clear All
+
+    </button>
+
+
+    <br>
+    <br>
+
+
+    <div
+        id="savedLoans"
+        class="saved-grid">
+
+    </div>
+
+
+</div>
+
+
+</section>
+
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+
+<div>
+
+    <strong>
+        Smart EMI & Loan Planner
+    </strong>
+
+    <br>
+
+    Educational calculator —
+    not financial advice.
+
+</div>
+
+
+<div>
+
+    Built with HTML, CSS & JavaScript
+
+</div>
+
+
+</footer>
+
+
+<script src="script.js"></script>
+
+
+</body>
+
+</html>
