@@ -5,11 +5,14 @@ A modern and responsive **EMI & Loan Planning Web Application** built using HTML
 The project started as a simple EMI calculator and was upgraded into an interactive loan-planning application that helps users calculate EMI, understand repayment, compare loans, save calculations, analyze amortization, and download detailed reports.
 
 Live Project Link: https://smart-emi-loan-planner.vercel.app/
+
 ---
 
 ## 📌 About the Project
 
 Smart EMI & Loan Planner helps users understand their loan repayment in a simple and visual way.
+
+Project Type: Interactive Front-End Web Application / Personal Finance Application.
 
 Users can enter:
 
